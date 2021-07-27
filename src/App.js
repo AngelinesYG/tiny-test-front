@@ -1,7 +1,11 @@
 import React from 'react'
 import axios from 'axios'
+import {BrowserRouter as Router} from 'react-router-dom'
+import {Route, Switch, Link} from 'react-router-dom';
+import {Redirect} from 'react-router';
 import {TinyButton as ScrollUpButton} from 'react-scroll-up-button'
 import Nav from './components/Nav'
+import Home from './components/Home'
 import CustomerProf from './components/CustomerProf'
 import AddCustomer from './components/AddCustomer'
 import Footer from './components/Footer'
@@ -50,21 +54,36 @@ class App extends React.Component {
 
    render(){
       return(
-         <div>
-         <ScrollUpButton/>
-         <AddCustomer/>
-         <Recipes/>
-         <div className="customers">
+      <Router>
+          <div className="App">
+             <ScrollUpButton/>
+             <Nav/>
+         <Switch>
+               <Route path="/" exact component={Home}>
+                <div id="home-container">
+                 <Home/>
+                </div>
+               </Route>
 
-            {this.state.customers.map((customer) => {
-               return(
-                  <CustomerProf customer={customer}
-                   handleChange={this.handleChange}
-                   />
-               )
-            })}
+               <Route path="/Recipes">
+                  <div id="recipes">
+                  <Recipes/>
+                  </div>
+               </Route>
+               <Route path="/Welcome">
+                  <div className="customers">
+                  {this.state.customers.map((customer) => {
+                  return(
+                     <CustomerProf customer={customer}
+                      handleChange={this.handleChange}
+                      />
+                     )
+                  })}
+                  </div>
+               </Route>
+         </Switch>
          </div>
-         </div>
+      </Router>
       )
    }
 }

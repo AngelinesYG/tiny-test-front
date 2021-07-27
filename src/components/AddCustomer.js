@@ -21,6 +21,8 @@ export default class AddCustomer extends Component {
    handleSubmit = (event) =>{
       event.preventDefault()
       this.props.addCustomers(this.state)
+      this.props.displayRecipe(this.state)
+
    }
 
    render(){
